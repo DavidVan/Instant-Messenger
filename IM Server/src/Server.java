@@ -54,8 +54,19 @@ public class Server {
 	
 	public void continuousConnection() {
 		int size = clients.size();
+		try {
+			Socket temp = serverSocket.accept();
+			if (!clients.contains(temp)) {
+				connectClient(temp);
+			}
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int count = 0;
 		while(size > 0) {
+			size = clients.size();
 			String message = recieve(count);
 			if(message != "") {
 				send(message);

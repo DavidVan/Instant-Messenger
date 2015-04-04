@@ -11,17 +11,8 @@ public class StartServer {
 		System.out.println("Server Online!");
 		Server s = new Server(port);
 		Socket temp;
-		try {
-			while (1 == 1) {	
-				temp = s.serverSocket.accept();
-				if (!s.clients.contains(temp)) {
-					s.connectClient(temp);
-				}
-				s.continuousConnection();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (1 == 1) {	
+			s.continuousConnection();
 		}
 	}
 }
