@@ -19,7 +19,7 @@ public class Client {
 		this.host = host;
 		this.port = port;
 		Scanner sc = new Scanner(System.in);
-		userName = sc.nextLine();
+		userName = "Hello";
 		sc.close();
 		try {
 			clientSocket = new Socket(host, port);
@@ -35,7 +35,7 @@ public class Client {
 	public void initialConnection() {
 		try {
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			out.println(userName);
 			System.out.println(in.readLine());
 		} catch (IOException e) {

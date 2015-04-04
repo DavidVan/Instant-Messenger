@@ -29,7 +29,7 @@ public class Server {
 		try {
 			clients.add(serverSocket.accept());
 			PrintWriter out = new PrintWriter(clients.get(clients.size()-1).getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(clients.size()-1).getInputStream()));
 			String userName = in.readLine();
 			out.println("Welcome " + userName + "! Connection to server successful!");
 		} catch (IOException e) {
