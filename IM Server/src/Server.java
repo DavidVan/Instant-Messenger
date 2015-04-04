@@ -53,35 +53,16 @@ public class Server {
 	}
 	
 	public void continuousConnection() {
-		int size = clients.size();
-		try {
-			Socket temp = serverSocket.accept();
-			if (!clients.contains(temp)) {
-				connectClient(temp);
-			}
-		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int count = 0;
-		while(size > 0) {
-			size = clients.size();
-			String message = recieve(count);
-			if(message != "") {
-				send(message);
-			}
-			count++;
-			if (count >= clients.size()) {
-				count = 0;
-			}
+		for (int i = 0; i < clients.size(); i++) {
+			String message = recieve(clients.get(i));
+			send(message, clients.get(i));
 		}
 	}
 	
-	public void send(String message) {
+	public void send(String message, Socket socket) {
 		try {
 			for (int i = 0; i < clients.size(); i++) {
-				PrintWriter out = new PrintWriter(clients.get(i).getOutputStream(), true);
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				out.println(message);
 			}
 		}
@@ -91,13 +72,11 @@ public class Server {
 		}
 	}
 	
-	public String recieve(int count) {
+	public String recieve(Socket socket) {
 		String message = "";
 		try {
-			if(count < clients.size()) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(count).getInputStream()));
-				return in.readLine();
-			}
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			return in.readLine();
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
