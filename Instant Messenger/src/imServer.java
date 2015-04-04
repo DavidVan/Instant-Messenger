@@ -7,15 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class imServer {
-<<<<<<< Updated upstream
 
 	public int port;
 	public String host;
-	
-=======
-	public int port;
-	public String host;
->>>>>>> Stashed changes
+
 	public imServer() {
 	}
 	/**
