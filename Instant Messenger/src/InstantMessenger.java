@@ -7,5 +7,6 @@ public class InstantMessenger {
 		myServer.accept();
 		System.out.println("Yay.");
 		myClient.recieve();
+		myServer.receive();
 	}
 }

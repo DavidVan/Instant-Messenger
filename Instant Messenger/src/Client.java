@@ -18,7 +18,6 @@ public class Client {
 			client = new Socket(host,port);
 			//send("Hello",client);
 			send();
-			client.close();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
