@@ -64,6 +64,7 @@ public class Server {
 			for (int i = 0; i < clients.size(); i++) {
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				out.println(message);
+				out.close();
 			}
 		}
 		catch (IOException e) {
@@ -76,7 +77,9 @@ public class Server {
 		String message = "";
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			return in.readLine();
+			message = in.readLine();
+			in.close();
+			return message;
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
