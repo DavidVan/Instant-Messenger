@@ -10,6 +10,7 @@ public class StartServer {
 		int port = 4444;
 		System.out.println("Server Online!");
 		Server s = new Server(port);
+		s.connectClient();
 		Socket temp;
 		try {
 			while (true) {	
