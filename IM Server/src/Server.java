@@ -63,8 +63,12 @@ public class Server {
 //				clients.remove();
 //			}
 			for (int i = 0; i < clients.size(); i++) {
-				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
-				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
+				PrintWriter temp = new PrintWriter(clients.get(i).getOutputStream(), true);
+				BufferedReader temp2 = new BufferedReader(new InputStreamReader(clients.get(i).getInputStream()));
+				if (!output.contains(temp) && !input.contains(temp2)) {
+					output.add(temp);
+					input.add(temp2);
+				}
 			}
 			for (int i = 0; i < input.size(); i++) {
 				for (int j = 0; j < output.size(); j++) {
