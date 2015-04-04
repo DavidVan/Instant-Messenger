@@ -47,8 +47,8 @@ public class Client {
 	public void recieve(){
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			String message;
-			while((message = in.readLine()) != null){
+			String message = in.readLine();
+			while(message != null){
 				System.out.println(message);
 			}
 		} catch (IOException e) {
@@ -60,7 +60,7 @@ public class Client {
 		String response = "";
 		Scanner sc = new Scanner(System.in);
 		String fromUser = sc.nextLine();
-		response += fromUser;
+		response = fromUser;
 		out.println(userName + "(" + clientSocket.getInetAddress() + "): " + fromUser);
 		return response;
 	}
