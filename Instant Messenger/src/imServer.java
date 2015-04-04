@@ -4,9 +4,12 @@ import java.net.ServerSocket;
 
 public class imServer {
 	
+<<<<<<< Updated upstream
 	public int port;
 	public String host;
 	
+=======
+>>>>>>> Stashed changes
 	public imServer() {
 	}
 	/**
