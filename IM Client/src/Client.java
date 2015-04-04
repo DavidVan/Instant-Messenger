@@ -58,16 +58,10 @@ public class Client {
 	}
 	public String send(){
 		String response = "";
-		try {
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			String fromUser = in.readLine();
-			response += fromUser;
-			out.println(userName + "(" + clientSocket.getInetAddress() + "): " + fromUser);				
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Scanner sc = new Scanner(System.in);
+		String fromUser = sc.nextLine();
+		response += fromUser;
+		out.println(userName + "(" + clientSocket.getInetAddress() + "): " + fromUser);
 		return response;
 	}
 }
