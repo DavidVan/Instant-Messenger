@@ -15,12 +15,10 @@ public class Client {
 		
 	}
 	
-	public Client(String host, int port) {
+	public Client(String host, int port,String userName) {
 		this.host = host;
 		this.port = port;
-		Scanner sc = new Scanner(System.in);
-		userName = "Hello";
-		sc.close();
+		this.userName = userName;
 		try {
 			clientSocket = new Socket(host, port);
 		} catch (UnknownHostException e) {
@@ -43,5 +41,31 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
+	public void recieve(){
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			String message;
+			while((message = in.readLine()) != null){
+				System.out.println(message);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public String send(){
+		String response = "";
+		try {
+			
+			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			String fromUser = in.readLine();
+			response += fromUser;
+			out.println(userName + "(" + clientSocket.getInetAddress() + "): " + fromUser);				
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+	}
 }
