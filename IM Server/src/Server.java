@@ -9,6 +9,8 @@ public class Server {
 	public int port;
 	public ServerSocket serverSocket;
 	public ArrayList<Socket> clients;
+	ArrayList<PrintWriter> output;
+	ArrayList<BufferedReader> input;
 	
 	public Server() {
 		
@@ -16,6 +18,8 @@ public class Server {
 	
 	public Server(int port) {
 		clients = new ArrayList<Socket>();
+		output = new ArrayList<PrintWriter>();
+		input = new ArrayList<BufferedReader>();
 		this.port = port;
 		try {
 			serverSocket = new ServerSocket(port);
@@ -28,10 +32,10 @@ public class Server {
 	public void connectClient() {
 		try {
 			clients.add(serverSocket.accept());
-			PrintWriter out = new PrintWriter(clients.get(clients.size()-1).getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(clients.size()-1).getInputStream()));
-			String userName = in.readLine();
-			out.println("Welcome " + userName + "! Connection to server successful!");
+			output.add(new PrintWriter(clients.get(clients.size()-1).getOutputStream(), true));
+			input.add(new BufferedReader(new InputStreamReader(clients.get(clients.size()-1).getInputStream())));
+			String userName = input.get(input.size()-1).readLine();
+			output.get(output.size()-1).println("Welcome " + userName + "! Connection to server successful!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,16 +43,14 @@ public class Server {
 	}
 	
 	public void continuousConnection() {
-		try {
+//		try {
 //			if () {
 //				clients.remove();
 //			}
-			ArrayList<PrintWriter> output = new ArrayList<PrintWriter>();
-			ArrayList<BufferedReader> input = new ArrayList<BufferedReader>();
-			for (int i = 0; i < clients.size(); i++) {
-				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
-				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
-			}
+//			for (int i = 0; i < clients.size(); i++) {
+//				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
+//				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
+//			}
 			while(clients.size() != 0) {
 				for (int i = 0; i < input.size(); i++) {
 					for (int j = 0; j < output.size(); j++) {
@@ -58,10 +60,10 @@ public class Server {
 					}
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 }

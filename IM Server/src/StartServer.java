@@ -9,5 +9,6 @@ public class StartServer {
 		sc.close();
 		Server s = new Server(port);
 		s.connectClient();
+		s.continuousConnection();
 	}
 }
