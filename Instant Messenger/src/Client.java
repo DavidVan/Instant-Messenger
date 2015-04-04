@@ -7,14 +7,17 @@ import java.net.UnknownHostException;
 
 
 public class Client {
+	
+	public Socket client;
+	
 	public Client(){
 		
 	}
 	public Client(int port, String host){
 		try {
-			Socket client = new Socket(host,port);
-			send("Hello",client);
-			recieve(client);
+			client = new Socket(host,port);
+			//send("Hello",client);
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,20 +26,18 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	public void recieve(Socket client){
-			BufferedReader in;
-			try {
-				in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-				System.out.print("String Recieved :");
-				while(!in.ready()){
-					System.out.println(in.readLine());
-					System.out.println();
-				}
-					in.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void recieve(){
+		BufferedReader in;	
+		try {
+			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			System.out.print("String Recieved :");
+			System.out.println(in.readLine());
+			in.close();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void send(String message,Socket client){
 		try {
