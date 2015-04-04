@@ -8,26 +8,17 @@ import java.net.UnknownHostException;
 
 
 public class Client {
-<<<<<<< Updated upstream
-	
+
 	public Socket client;
-	
-=======
-	private Socket client;
->>>>>>> Stashed changes
 	public Client(){
 		
 	}
 	public Client(int port, String host){
 		try {
 			client = new Socket(host,port);
-<<<<<<< Updated upstream
 			//send("Hello",client);
-			
-=======
 			send();
 			client.close();
->>>>>>> Stashed changes
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

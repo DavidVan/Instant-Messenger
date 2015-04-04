@@ -19,7 +19,6 @@ public class imServer {
 	public imServer(int port) {
 		this.port = port;
 		try {
-<<<<<<< Updated upstream
 			serverSocket = new ServerSocket(this.port);
 			System.out.println("1");
 		} catch (IOException e) {
@@ -33,10 +32,6 @@ public class imServer {
 			PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			output.println("Sent Data");
-=======
-			ServerSocket serverSocket = new ServerSocket(port);
-
->>>>>>> Stashed changes
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
