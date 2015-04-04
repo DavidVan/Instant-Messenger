@@ -53,13 +53,17 @@ public class Server {
 	}
 	
 	public void continuousConnection() {
-		int count = clients.size();
-		while(count > 0) {
-			String message = recieve();
+		int size = clients.size();
+		int count = 0;
+		while(size > 0) {
+			String message = recieve(count);
 			if(message != "") {
 				send(message);
 			}
-			count--;
+			count++;
+			if (count >= clients.size()) {
+				count = 0;
+			}
 		}
 	}
 	
@@ -76,11 +80,11 @@ public class Server {
 		}
 	}
 	
-	public String recieve() {
+	public String recieve(int count) {
 		String message = "";
 		try {
-			for (int i = 0; i < clients.size(); i++) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(i).getInputStream()));
+			if(count < clients.size()) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(count).getInputStream()));
 				return in.readLine();
 			}
 		}

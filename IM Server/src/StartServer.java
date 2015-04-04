@@ -17,9 +17,7 @@ public class StartServer {
 				if (!s.clients.contains(temp)) {
 					s.connectClient(temp);
 				}
-				else {
-					s.continuousConnection();
-				}
+				s.continuousConnection();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
