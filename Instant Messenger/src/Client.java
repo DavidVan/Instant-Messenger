@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -12,6 +13,8 @@ public class Client {
 	public Client(int port, String host){
 		try {
 			Socket client = new Socket(host,port);
+			send("Hello",client);
+			recieve(client);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,5 +37,21 @@ public class Client {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
+	public void send(String message,Socket client){
+		try {
+			DataOutputStream mOut = new DataOutputStream(client.getOutputStream());
+			mOut.writeByte(1);
+			mOut.writeUTF(message);
+			mOut.flush();
+			
+			mOut.writeByte(-1);
+			mOut.flush();
+			mOut.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
