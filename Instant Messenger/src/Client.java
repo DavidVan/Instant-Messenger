@@ -2,22 +2,32 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 
 public class Client {
+<<<<<<< Updated upstream
 	
 	public Socket client;
 	
+=======
+	private Socket client;
+>>>>>>> Stashed changes
 	public Client(){
 		
 	}
 	public Client(int port, String host){
 		try {
 			client = new Socket(host,port);
+<<<<<<< Updated upstream
 			//send("Hello",client);
 			
+=======
+			send();
+			client.close();
+>>>>>>> Stashed changes
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,20 +49,23 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	public void send(String message,Socket client){
-		try {
-			DataOutputStream mOut = new DataOutputStream(client.getOutputStream());
-			mOut.writeByte(1);
-			mOut.writeUTF(message);
-			mOut.flush();
+	public void send(){
+			try {
+				PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+				String fromUser = in.readLine();
+				out.println(fromUser);
+//				while(fromUser != null){
+//					System.out.println("Client: " + fromUser);
+//					out.println(fromUser);
+//				}
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			mOut.writeByte(-1);
-			mOut.flush();
-			mOut.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 }
