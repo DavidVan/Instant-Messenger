@@ -10,6 +10,9 @@ public class Client {
 	public int port;
 	public Socket clientSocket;
 	public String userName;
+	PrintWriter out;
+	BufferedReader in;
+	
 	
 	public Client() {
 		
@@ -21,6 +24,8 @@ public class Client {
 		this.userName = userName;
 		try {
 			clientSocket = new Socket(host, port);
+			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,8 +37,6 @@ public class Client {
 	
 	public void initialConnection() {
 		try {
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			out.println(userName);
 			System.out.println(in.readLine());
 		} catch (IOException e) {
@@ -56,7 +59,6 @@ public class Client {
 	public String send(){
 		String response = "";
 		try {
-			
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			String fromUser = in.readLine();

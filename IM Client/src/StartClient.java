@@ -12,9 +12,9 @@ public class StartClient {
 		Client c = new Client(host, port, userName);
 		c.initialConnection();
 		c.send();
-		while(!c.send().contains("quit")){
-			c.send();
-			c.recieve();
-		}
+		//while(!c.send().contains("quit")){
+		//	c.send();
+		//	c.recieve();
+		//}
 	}
 }
