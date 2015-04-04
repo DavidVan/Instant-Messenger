@@ -8,5 +8,6 @@ public class StartServer {
 		int port = sc.nextInt();
 		sc.close();
 		Server s = new Server(port);
+		s.connectClient();
 	}
 }
