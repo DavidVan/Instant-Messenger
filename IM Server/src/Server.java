@@ -64,14 +64,12 @@ public class Server {
 				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
 				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
 			}
-			while(clients.size() != 0) {
-				for (int i = 0; i < input.size(); i++) {
-					for (int j = 0; j < output.size(); j++) {
-						String temp = input.get(i).readLine();
-						if (temp != null) {
-							output.get(j).println(input.get(i));
-							System.out.println(temp);
-						}
+			for (int i = 0; i < input.size(); i++) {
+				for (int j = 0; j < output.size(); j++) {
+					String temp = input.get(i).readLine();
+					if (temp != null) {
+						output.get(j).println(input.get(i));
+						System.out.println(temp);
 					}
 				}
 			}

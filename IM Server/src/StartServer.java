@@ -14,12 +14,14 @@ public class StartServer {
 		s.connectClient();
 		Socket temp;
 		try {
-			temp = s.serverSocket.accept();
-			if (!s.clients.contains(temp)) {
-				s.connectClient(temp);
-			}
-			else {
-				s.continuousConnection();
+			while (1 == 1) {	
+				temp = s.serverSocket.accept();
+				if (!s.clients.contains(temp)) {
+					s.connectClient(temp);
+				}
+				else {
+					s.continuousConnection();
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
