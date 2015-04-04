@@ -9,17 +9,12 @@ public class Server {
 	public int port;
 	public ServerSocket serverSocket;
 	public ArrayList<Socket> clients;
-	public ArrayList<PrintWriter> output;
-	public ArrayList<BufferedReader> input;
-	
 	public Server() {
 		
 	}
 	
 	public Server(int port) {
 		clients = new ArrayList<Socket>();
-		output = new ArrayList<PrintWriter>();
-		input = new ArrayList<BufferedReader>();
 		this.port = port;
 		try {
 			serverSocket = new ServerSocket(port);
@@ -58,31 +53,42 @@ public class Server {
 	}
 	
 	public void continuousConnection() {
+		int count = clients.size();
+		while(count > 0) {
+			String message = recieve();
+			if(message != "") {
+				send(message);
+			}
+			count--;
+		}
+	}
+	
+	public void send(String message) {
 		try {
-//			if () {
-//				clients.remove();
-//			}
 			for (int i = 0; i < clients.size(); i++) {
-				PrintWriter temp = new PrintWriter(clients.get(i).getOutputStream(), true);
-				BufferedReader temp2 = new BufferedReader(new InputStreamReader(clients.get(i).getInputStream()));
-				if (!output.contains(temp) && !input.contains(temp2)) {
-					output.add(temp);
-					input.add(temp2);
-				}
+				PrintWriter out = new PrintWriter(clients.get(i).getOutputStream(), true);
+				out.println(message);
 			}
-			for (int i = 0; i < input.size(); i++) {
-				for (int j = 0; j < output.size(); j++) {
-					String temp = input.get(i).readLine();
-					if (temp != null) {
-						output.get(j).println(temp);
-						System.out.println(temp);
-					}
-				}
-			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String recieve() {
+		String message = "";
+		try {
+			for (int i = 0; i < clients.size(); i++) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(i).getInputStream()));
+				return in.readLine();
+			}
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return message;
 	}
 	
 }

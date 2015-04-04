@@ -9,7 +9,6 @@ public class StartServer {
 		String host = "localhost";
 		int port = 4444;
 		System.out.println("Server Online!");
-		sc.close();
 		Server s = new Server(port);
 		Socket temp;
 		try {
@@ -18,7 +17,9 @@ public class StartServer {
 				if (!s.clients.contains(temp)) {
 					s.connectClient(temp);
 				}
-				s.continuousConnection();
+				else {
+					s.continuousConnection();
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
