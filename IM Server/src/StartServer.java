@@ -7,6 +7,6 @@ public class StartServer {
 		String host = sc.nextLine();
 		int port = sc.nextInt();
 		sc.close();
-		Server s = new Server(host, port);
+		Server s = new Server(port);
 	}
 }
