@@ -9,6 +9,8 @@ public class Server {
 	public int port;
 	public ServerSocket serverSocket;
 	public ArrayList<Socket> clients;
+	public ArrayList<PrintWriter> output;
+	public ArrayList<BufferedReader> input;
 	
 	public Server() {
 		
@@ -16,6 +18,8 @@ public class Server {
 	
 	public Server(int port) {
 		clients = new ArrayList<Socket>();
+		output = new ArrayList<PrintWriter>();
+		input = new ArrayList<BufferedReader>();
 		this.port = port;
 		try {
 			serverSocket = new ServerSocket(port);
@@ -58,8 +62,6 @@ public class Server {
 //			if () {
 //				clients.remove();
 //			}
-			ArrayList<PrintWriter> output = new ArrayList<PrintWriter>();
-			ArrayList<BufferedReader> input = new ArrayList<BufferedReader>();
 			for (int i = 0; i < clients.size(); i++) {
 				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
 				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
@@ -68,7 +70,7 @@ public class Server {
 				for (int j = 0; j < output.size(); j++) {
 					String temp = input.get(i).readLine();
 					if (temp != null) {
-						output.get(j).println(input.get(i));
+						output.get(j).println(temp);
 						System.out.println(temp);
 					}
 				}
