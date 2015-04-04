@@ -1,15 +1,14 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class imServer {
-	
-<<<<<<< Updated upstream
+
 	public int port;
 	public String host;
 	
-=======
->>>>>>> Stashed changes
 	public imServer() {
 	}
 	/**
@@ -22,6 +21,9 @@ public class imServer {
 		this.host = host;
 		try {
 			ServerSocket serverSocket = new ServerSocket(this.port, 0, InetAddress.getByName(this.host));;
+			Socket clientSocket = serverSocket.accept();
+			PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
+			System.out.println(output);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
