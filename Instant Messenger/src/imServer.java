@@ -12,6 +12,7 @@ public class imServer {
 	public ServerSocket serverSocket;
 	public Socket[] clients = new Socket[2];
 	public int numClient = 0;
+	public boolean connections;
 
 	public imServer() {
 	}
@@ -35,7 +36,7 @@ public class imServer {
 				clients[numClient] = clientSocket;
 			}
 			PrintWriter output = new PrintWriter(clients[numClient].getOutputStream(), true);
-			BufferedReader input = new BufferedReader(new InputStreamReader(clients[numClient].getInputStream()));
+//			BufferedReader input = new BufferedReader(new InputStreamReader(clients[numClient].getInputStream()));
 			output.println("Client connected @ " + clients[numClient].getInetAddress());
 			numClient++;
 		} catch (IOException e) {
@@ -45,12 +46,31 @@ public class imServer {
 	}
 	
 	public void receive() {
+		int j = 0;
 		try {
-			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			for(int i = 0; i < clients.length; i ++){
+				if(clients[i].getInetAddress() == clientSocket.getInetAddress()){
+					j = i;
+					break;
+				}
+			}
+			BufferedReader input = new BufferedReader(new InputStreamReader(clients[j].getInputStream()));
 			System.out.println(input.readLine());
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public boolean clientsLeave(){
+		for(int i = 0; i < clients.length; i ++){
+			if(clients[i].isClosed()){
+				clients[i] = null;
+				numClient--;
+			}
+		}
+		if(numClient == -1)
+			return true;
+		else
+			return false;
 	}
 }

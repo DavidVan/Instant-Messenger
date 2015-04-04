@@ -20,7 +20,7 @@ public class Client {
 		try {
 			client = new Socket(host,port);
 			this.ip = client.getInetAddress().toString();
-			send();
+//			send();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,12 +29,13 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	public void recieve(){
+	public void connected(){
 		BufferedReader in;	
 		try {
 			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 //			System.out.print("String Recieved :");
 			System.out.println(in.readLine());
+			send();
 			in.close();
 		}
 		catch (IOException e) {
@@ -44,6 +45,7 @@ public class Client {
 	}
 	public void send(){
 			try {
+				
 				PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 				String fromUser = in.readLine();
