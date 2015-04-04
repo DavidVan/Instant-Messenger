@@ -16,7 +16,7 @@ public class StartServer {
 			int count = 0;
 			while (true) {
 				list.add(s.serverSocket.accept());
-				if (!s.clients.contains(list.get(count))) {
+				if (!s.clients.contains(list.get(count).getInetAddress().equals(list.get(count-1).getInetAddress()))) {
 					s.connectClient(list.get(count));
 				}
 				count++;
