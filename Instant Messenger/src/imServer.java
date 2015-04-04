@@ -3,6 +3,10 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 
 public class imServer {
+	
+	public int port;
+	public String host;
+	
 	public imServer() {
 	}
 	/**
@@ -11,11 +15,12 @@ public class imServer {
 	 * @param host
 	 */
 	public imServer(int port, String host) {
+		this.port = port;
+		this.host = host;
 		try {
-			ServerSocket serverSocket = new ServerSocket(port, 0, InetAddress.getByName(host));;
+			ServerSocket serverSocket = new ServerSocket(this.port, 0, InetAddress.getByName(this.host));;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// Test
 	}
 }
