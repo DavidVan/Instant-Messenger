@@ -60,16 +60,15 @@ public class Server {
 	}
 	
 	public void send(String message, Socket socket) {
-		try {
-			for (int i = 0; i < clients.size(); i++) {
+		for (int i = 0; i < clients.size(); i++) {
+			try {
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				out.println(message);
-				out.close();
 			}
-		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -78,7 +77,6 @@ public class Server {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			message = in.readLine();
-			in.close();
 			return message;
 		}
 		catch (IOException e) {
