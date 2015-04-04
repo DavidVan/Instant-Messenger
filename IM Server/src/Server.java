@@ -38,6 +38,28 @@ public class Server {
 		}
 	}
 	
-	
+	public void continuousConnection() {
+		try {
+//			if () {
+//				clients.remove();
+//			}
+			ArrayList<PrintWriter> output = new ArrayList<PrintWriter>();
+			ArrayList<BufferedReader> input = new ArrayList<BufferedReader>();
+			for (int i = 0; i < clients.size(); i++) {
+				output.add(new PrintWriter(clients.get(i).getOutputStream(), true));
+				input.add(new BufferedReader(new InputStreamReader(clients.get(i).getInputStream())));
+			}
+			while(clients.size() != 0) {
+				for (int i = 0; i < input.size(); i++) {
+					for (int j = 0; j < output.size(); j++) {
+						output.get(j).println(input.get(i));
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
