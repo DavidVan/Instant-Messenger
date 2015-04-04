@@ -52,7 +52,9 @@ public class Server {
 			while(clients.size() != 0) {
 				for (int i = 0; i < input.size(); i++) {
 					for (int j = 0; j < output.size(); j++) {
-						output.get(j).println(input.get(i));
+						if (input.get(i) != null) {
+							output.get(j).println(input.get(i));
+						}
 					}
 				}
 			}
