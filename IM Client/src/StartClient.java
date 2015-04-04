@@ -10,11 +10,11 @@ public class StartClient {
 		String userName = sc.nextLine();
 		Client c = new Client(host, port, userName);
 		c.initialConnection();
-		c.send();
+		String status = c.send();
 		c.recieve();
 		
-		while(!c.send().contains("quit")){
-			c.send();
+		while(!status.contains("quit")){
+			status = c.send();
 			c.recieve();
 		}
 	}

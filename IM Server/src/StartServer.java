@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Scanner;
 
 
@@ -10,6 +12,18 @@ public class StartServer {
 		sc.close();
 		Server s = new Server(port);
 		s.connectClient();
-		s.continuousConnection();
+		Socket temp;
+		try {
+			temp = s.serverSocket.accept();
+			if (!s.clients.contains(temp)) {
+				s.connectClient();
+			}
+			else {
+				s.continuousConnection();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

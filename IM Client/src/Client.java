@@ -48,9 +48,7 @@ public class Client {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String message = in.readLine();
-			while(message != null){
-				System.out.println(message);
-			}
+			System.out.println(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
