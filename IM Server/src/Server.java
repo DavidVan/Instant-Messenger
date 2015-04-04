@@ -31,6 +31,21 @@ public class Server {
 			PrintWriter out = new PrintWriter(clients.get(clients.size()-1).getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(clients.size()-1).getInputStream()));
 			String userName = in.readLine();
+			System.out.println(userName + " has connected.");
+			out.println("Welcome " + userName + "! Connection to server successful!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void connectClient(Socket temp) {
+		try {
+			clients.add(temp);
+			PrintWriter out = new PrintWriter(clients.get(clients.size()-1).getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(clients.get(clients.size()-1).getInputStream()));
+			String userName = in.readLine();
+			System.out.println(userName + " has connected.");
 			out.println("Welcome " + userName + "! Connection to server successful!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

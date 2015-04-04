@@ -16,7 +16,7 @@ public class StartServer {
 		try {
 			temp = s.serverSocket.accept();
 			if (!s.clients.contains(temp)) {
-				s.connectClient();
+				s.connectClient(temp);
 			}
 			else {
 				s.continuousConnection();
