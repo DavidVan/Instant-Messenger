@@ -10,13 +10,16 @@ import java.net.UnknownHostException;
 public class Client {
 
 	public Socket client;
+	private String name;
+	private String ip;
 	public Client(){
 		
 	}
-	public Client(int port, String host){
+	public Client(int port, String host, String name){
+		this.name = name;
 		try {
 			client = new Socket(host,port);
-			//send("Hello",client);
+			this.ip = client.getInetAddress().toString();
 			send();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -30,7 +33,7 @@ public class Client {
 		BufferedReader in;	
 		try {
 			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			System.out.print("String Recieved :");
+//			System.out.print("String Recieved :");
 			System.out.println(in.readLine());
 			in.close();
 		}
@@ -44,18 +47,19 @@ public class Client {
 				PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 				String fromUser = in.readLine();
-				out.println(fromUser);
-//				while(fromUser != null){
-//					System.out.println("Client: " + fromUser);
-//					out.println(fromUser);
-//				}
-				
-				
+				out.println(name + "(" + ip + "): " + fromUser);				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-		
+			}					
+	}
+	public void changeName(String name){
+		this.name = name;
+	}
+	public String getName(){
+		return this.name;
+	}
+	public String getIp(){
+		return this.ip;
 	}
 }
