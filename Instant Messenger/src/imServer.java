@@ -22,6 +22,7 @@ public class imServer {
 			Socket clientSocket = serverSocket.accept();
 			PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
