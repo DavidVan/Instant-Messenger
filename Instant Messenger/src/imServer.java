@@ -14,7 +14,7 @@ public class imServer {
 	public imServer() {
 	}
 	/**
-	 * Constructor for 
+	 * Constructor for socket.
 	 * @param port
 	 * @param host
 	 */
