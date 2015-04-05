@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Server {
 	public int port;
@@ -53,22 +54,40 @@ public class Server {
 	}
 	
 	public void continuousConnection() {
-		for (int i = 0; i < clients.size(); i++) {
-			String message = recieve(clients.get(i));
-			send(message, clients.get(i));
-		}
+		String message = recieve(clients.get(0));
+			if(message != ""){
+				System.out.println(message);
+				send(message);
+			}
+			else {
+				serverSpeak();
+			}
+
 	}
-	
-	public void send(String message, Socket socket) {
-		for (int i = 0; i < clients.size(); i++) {
+	public String serverSpeak(){
+		String response = "";
+		try {
+			PrintWriter out = new PrintWriter(clients.get(0).getOutputStream(), true);
+			Scanner sc = new Scanner(System.in);
+			String fromServer = sc.nextLine();
+			response += fromServer;
+			System.out.println("Admin(localhost): " + response);
+			out.println("Admin(localhost): " + response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+	}
+
+	public void send(String message) {
 			try {
-				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				PrintWriter out = new PrintWriter(clients.get(0).getOutputStream(), true);
 				out.println(message);
 			}
 			catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
 		}
 	}
 	

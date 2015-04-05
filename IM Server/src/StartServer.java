@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -11,15 +10,13 @@ public class StartServer {
 		int port = 4444;
 		System.out.println("Server Online!");
 		Server s = new Server(port);
-		ArrayList<Socket> list = new ArrayList<Socket>();
+		Socket temp;
+		Socket temp2;
 		try {
-			int count = 0;
+			temp = s.serverSocket.accept();
+			s.connectClient(temp);
+
 			while (true) {
-				list.add(s.serverSocket.accept());
-				if (!s.clients.contains(list.get(count).getInetAddress().equals(list.get(count-1).getInetAddress()))) {
-					s.connectClient(list.get(count));
-				}
-				count++;
 				s.continuousConnection();
 			}
 		} catch (IOException e) {
